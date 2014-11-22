@@ -1,0 +1,31 @@
+<% content_for :home do %>
+    <h1>Listing users</h1>
+
+    <table>
+      <tr>
+        <th align="left">Name</th>
+        <th align="left">Email</th>
+        <th align="left">Phone</th>
+        <th align="left">Organization</th>
+        <th align="left" colspan="2">Actions</th>
+      </tr>
+
+      <% @users.each do |user| %>
+          <tr>
+            <td><%= user.last_name %>, <%= user.first_name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.phone %></td>
+            <td><%= user.organization %></td>
+            <td>Show</td>
+            <td>Edit</td>
+          </tr>
+      <% end %>
+    </table>
+    <p>
+      Download:
+     <%= link_to "Excel", users_list_path(format: "xls") %>
+    </p>
+
+<% end %>
+
+<%= render template: "layouts/home" %>

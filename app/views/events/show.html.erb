@@ -1,0 +1,80 @@
+<% content_for :home do %>
+
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <b>Name:</b>
+  <%= @event.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @event.desc %>
+</p>
+
+<!--
+<p>
+  <b>From Date:</b>
+  <%= @event.from_date %>
+</p>
+
+<p>
+  <b>To Date:</b>
+  <%= @event.to_date %>
+</p>
+
+<p>
+  <b>From Time:</b>
+  <%= @event.from_time %>
+</p>
+
+<p>
+  <b>To Time:</b>
+  <%= @event.to_time %>
+</p>
+-->
+<p>
+  <b>From:</b>
+  <%= @event.from_date.strftime('%d-%b-%Y') + ' ' + @event.from_time.strftime('%I:%M %p %:z') %>
+</p>
+<p>
+  <b>To:</b>
+  <%= @event.to_date.strftime('%d-%b-%Y') + ' ' + @event.to_time.strftime('%I:%M %p %:z') %>
+</p>
+<p>
+  <b>Venue:</b>
+  <%= @event.venue %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%= @event.category.blank? ? '' : @event.category.name %>
+</p>
+
+<p>
+  <b>Sign-In Starts Before(mins):</b>
+  <%= @event.min_before_start %>
+</p>
+
+<p>
+  <b>Sign-In Ends Before(mins):</b>
+  <%= @event.max_before_end %>
+</p>
+
+<% if @has_already_rsvp %>
+<%= link_to 'UN-RSVP', '/events/rsvp/' + @event.id.to_s %> |
+<% else %>
+<%= link_to 'RSVP', '/events/rsvp/' + @event.id.to_s %> |
+<% end %>
+
+<% if @can_check_in %>
+<%= link_to 'Check-in', '/events/check_in/' + @event.id.to_s %> |
+<% end %>
+<!-- only show edit event link if user == admin -->
+<% if @is_admin == true %>
+<%= link_to 'Edit', edit_event_path(@event) %>
+<% end %>
+
+<% end %>
+<%= render template: "layouts/home" %>
